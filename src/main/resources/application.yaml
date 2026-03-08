@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: ai-interview-generator
+
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+
+  gemini:
+    api:
+      key: AIzaSyAG0_CPBli0hLPWjXOEEifc2ujI6cFsXfM
