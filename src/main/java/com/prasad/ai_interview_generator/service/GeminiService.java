@@ -4,6 +4,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+
 @Service
 public class GeminiService {
 
@@ -14,13 +18,13 @@ public class GeminiService {
 
         String prompt = "Generate 5 interview questions on " + topic;
 
-        String url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=" + apiKey;
+        String url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" + apiKey;
 
         RestTemplate restTemplate = new RestTemplate();
 
-        String requestBody = """
+        String body = """
         {
-          "contents":[
+          "contents": [
             {
               "parts":[{"text":"%s"}]
             }
@@ -28,6 +32,11 @@ public class GeminiService {
         }
         """.formatted(prompt);
 
-        return restTemplate.postForObject(url, requestBody, String.class);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<String> entity = new HttpEntity<>(body, headers);
+
+        return restTemplate.postForObject(url, entity, String.class);
     }
 }
