@@ -11,9 +11,9 @@ public class Question {
 
     private String topic;
 
+    @Column(length = 5000)
     private String question;
 
-    // Constructors
     public Question() {}
 
     public Question(String topic, String question) {
@@ -21,7 +21,6 @@ public class Question {
         this.question = question;
     }
 
-    // Getters and Setters
     public Long getId() {
         return id;
     }
